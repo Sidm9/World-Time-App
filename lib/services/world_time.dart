@@ -11,6 +11,9 @@ class WorldTime {
 
   String url; // This is the location URL for the endpoint
 
+  bool isDayTime; // T or F is daytime
+
+
   WorldTime({this.location, this.flag, this.url});
 
   Future<void> getTime() async {
@@ -35,7 +38,11 @@ class WorldTime {
       now = now.add(Duration(hours: int.parse(offset)));
 
       // set time property
+
+      isDayTime = now.hour > 6 && now.hour < 20 ? true : false;
+
       time = DateFormat.jm().format(now);
+
     } catch (e) {
       print('Caught error: $e');
       time = 'Could not get time';
